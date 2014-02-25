@@ -1,6 +1,23 @@
 *.class
+/classes/*
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# eclipse
+.classpath
+.factorypath
+.project
+.settings
+
+# generated file
+src/main/webapp/WEB-INF/appengine-generated/
+target/
+src/main/webapp/WEB-INF/classes/
+www-test/
+WEB-INF/appengine-generated/
+
+# for deploy
+src/main/webapp/WEB-INF/lib/
