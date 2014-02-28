@@ -4,7 +4,7 @@
   
     <context-param>
         <param-name>slim3.rootPackage</param-name>
-        <param-value>jp.co.topgate.gae</param-value>
+        <param-value>org.sinmetal.gcp.study</param-value>
     </context-param>
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
