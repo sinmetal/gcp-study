@@ -52,6 +52,30 @@ public class DocumentControllerTest extends ApiTestCase {
 	 * @author sinmetal
 	 */
 	@Test
+	public void testSearch() throws Exception {
+		PostDataForSearchDocument postData = new PostDataForSearchDocument();
+		postData.id = "hogeId";
+		{
+			IndexParamForSearchDocument param = new IndexParamForSearchDocument();
+			param.name = "name";
+			param.value = "hoge";
+			param.type = Type.Atom;
+			postData.indexParams.add(param);
+		}
+		SearchService.addToIndex(postData);
+
+		tester.request.setMethod("GET");
+		tester.request.setParameter("query", "name:hoge");
+		tester.start("/search/document");
+		assertThat(tester.getController(), instanceOf(DocumentController.class));
+		assertThat(tester.response.getStatus(), is(200));
+	}
+
+	/**
+	 * @throws Exception
+	 * @author sinmetal
+	 */
+	@Test
 	public void testPost() throws Exception {
 		PostDataForSearchDocument postData = new PostDataForSearchDocument();
 		postData.id = "hogeId";

@@ -13,6 +13,8 @@ import org.slim3.controller.SimpleController;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.GetResponse;
 import com.google.appengine.api.search.PutResponse;
+import com.google.appengine.api.search.Results;
+import com.google.appengine.api.search.ScoredDocument;
 
 /**
  * Search API Sample
@@ -24,7 +26,12 @@ public class DocumentController extends SimpleController {
 	@Override
 	protected Navigation run() throws Exception {
 		if (isGet()) {
-			doGet();
+			String query = request.getParameter("query");
+			if (query != null) {
+				search(query);
+			} else {
+				doGet();
+			}
 			return null;
 		}
 		if (isPost()) {
@@ -43,6 +50,13 @@ public class DocumentController extends SimpleController {
 
 		response.setHeader("Content-Type", "application/json");
 		response.getWriter().write(JsonUtil.encode(documents));
+		response.getWriter().flush();
+	}
+
+	void search(String query) throws Exception {
+		Results<ScoredDocument> results = SearchService.search(query);
+		response.setHeader("Content-Type", "application/json");
+		response.getWriter().write(JsonUtil.encode(results));
 		response.getWriter().flush();
 	}
 

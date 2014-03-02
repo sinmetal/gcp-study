@@ -17,6 +17,8 @@ import com.google.appengine.api.search.GetResponse;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.PutResponse;
+import com.google.appengine.api.search.Results;
+import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SearchServiceFactory;
 
 /**
@@ -69,6 +71,15 @@ public class SearchService {
 	public static GetResponse<Document> getAllId() {
 		GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
 		return SearchService.getIndex().getRange(request);
+	}
+
+	/**
+	 * @param query
+	 * @return search result
+	 * @author sinmetal
+	 */
+	public static Results<ScoredDocument> search(String query) {
+		return getIndex().search(query);
 	}
 
 	/**
