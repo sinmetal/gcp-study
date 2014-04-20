@@ -9,7 +9,7 @@
 
 	<properties>
 		<slim3.version>1.0.17-SNAPSHOT</slim3.version>
-		<appengine.version>1.8.9</appengine.version>
+		<appengine.version>1.9.3</appengine.version>
 
 		<generated.src>.apt_generated</generated.src>
 		<generated.war>src/main/webapp</generated.war>
