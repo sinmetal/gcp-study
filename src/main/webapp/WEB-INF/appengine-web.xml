@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
 	<application>shin1-vm-runtime</application>
-	<version>s0418a</version>
+	<version>sinmetal-vm</version>
 	<vm>true</vm>
 	<vm-settings>
 		<setting name="machine_type" value="n1-standard-1" />
-		<setting name="apt_get_install" value="redis-server vim"/>
+		<setting name="apt_get_install" value="imagemagick"/>
 	</vm-settings>
 	<manual-scaling>
-		<instances>1</instances>
+		<instances>2</instances>
 	</manual-scaling>
 	<static-files>
 		<include path="/**.*" />
