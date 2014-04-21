@@ -33,6 +33,9 @@ public class IndexController extends Controller {
 			} catch (Throwable e) {
 				logger.log(Level.WARNING, e.getMessage(), e);
 			}
+			response.setContentType("text/plain");
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().write("done.");
 			return null;
 		} else if (isGet()) {
 			String filePath = request.getParameter("filepath");
