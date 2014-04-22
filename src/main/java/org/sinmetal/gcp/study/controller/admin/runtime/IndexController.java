@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.google.apphosting.api.ApiProxy;
+
 /**
  * Command実行する
  * @author sinmetal
@@ -26,6 +28,12 @@ public class IndexController extends Controller {
 
 		int ret = process.waitFor();
 		System.out.println("戻り値：" + ret);
+
+		Object object =
+				ApiProxy.getCurrentEnvironment().getAttributes()
+					.get("com.google.appengine.instance.id");
+		response.getWriter().write("instance-id : " + object.toString());
+		response.getWriter().write("\n");
 
 		// 標準出力
 		printInputStream(process.getInputStream(), response);

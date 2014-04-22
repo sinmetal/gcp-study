@@ -3,6 +3,8 @@ package org.sinmetal.gcp.study.controller.fibonacci;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
+import com.google.apphosting.api.ApiProxy;
+
 /**
  * フィボナッチ数列を無限に数え続ける
  * @author sinmetal
@@ -19,6 +21,11 @@ public class IndexController extends Controller {
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("utf-8");
 
+		Object object =
+				ApiProxy.getCurrentEnvironment().getAttributes()
+					.get("com.google.appengine.instance.id");
+		response.getWriter().write("instance-id : " + object.toString());
+		response.getWriter().write("\n");
 		if (isPost()) {
 			String parameter = request.getParameter("length");
 			int length = Integer.valueOf(parameter);
