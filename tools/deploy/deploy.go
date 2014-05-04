@@ -1,12 +1,13 @@
 package main
 
 import (
-	"bytes"
+	//"bytes"
 	"log"
+	"io"
 	"os"
 	"fmt"
 	"os/exec"
-	"strings"
+	//"strings"
 )
 
 func main() {
@@ -48,46 +49,55 @@ func main() {
 	}
 	fmt.Printf("cmd.Start end!!")
 
+	go io.Copy(os.Stdout, stdout)
 
-
-	fmt.Printf("cmd.Wait start!!")
 	if err := cmd.Wait(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("cmd.Wait end!!")
 
-	buf := new(bytes.Buffer)
-	buf.ReadFrom(stdout)
-	fmt.Printf("%s", buf.String())
+//	fmt.Printf("cmd.Wait start!!")
+//	if err := cmd.Wait(); err != nil {
+//		log.Fatal(err)
+//	}
+//	fmt.Printf("cmd.Wait end!!")
+//
+//	buf := new(bytes.Buffer)
+//	buf.ReadFrom(stdout)
+//	fmt.Printf("%s", buf.String())
+//
+//	cmd.Stdin = strings.NewReader("some input")
+//	var out bytes.Buffer
+//	var stderr bytes.Buffer
+//	cmd.Stdout = &out
+//	cmd.Stderr = &stderr
+//	//err := cmd.Run()
+//	if err != nil {
+//		fmt.Printf("stdout: %s\n", out.String())
+//		fmt.Printf("stderr: %s\n", stderr.String())
+//		log.Fatal(err)
+//	}
+//	fmt.Printf("stdout: %s\n", out.String())
 
-	cmd.Stdin = strings.NewReader("some input")
-	var out bytes.Buffer
-	var stderr bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &stderr
-	//err := cmd.Run()
-	if err != nil {
-		fmt.Printf("stdout: %s\n", out.String())
-		fmt.Printf("stderr: %s\n", stderr.String())
-		log.Fatal(err)
-	}
-	fmt.Printf("stdout: %s\n", out.String())
+//	go func(in io.WriteCloser) {
+//		for i := 0; i < 5; i++ {
+//			in.Write([]byte(fmt.Sprintf("hoge_%d", i)))
+//			time.Sleep(1 * time.Second)
+//		}
+//	}(stdin)
 
 
 
-
-
-	tests := []string{
-		"hoge",
-		"/bin/hoge",
-		"./hoge",
-		"/Users/shingoishimura/bin/appengine-java-sdk-1.8.9/bin/appcfg.sh",
-		"appcfg.sh",
-	}
-
-	for _, test := range (tests) {
-		if _, err := exec.LookPath(test); err != nil {
-			log.Print(err)
-		}
-	}
+//	tests := []string{
+//		"hoge",
+//		"/bin/hoge",
+//		"./hoge",
+//		"/Users/shingoishimura/bin/appengine-java-sdk-1.8.9/bin/appcfg.sh",
+//		"appcfg.sh",
+//	}
+//
+//	for _, test := range (tests) {
+//		if _, err := exec.LookPath(test); err != nil {
+//			log.Print(err)
+//		}
+//	}
 }
