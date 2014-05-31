@@ -14,9 +14,19 @@ func main() {
 	// 環境変数取得
 	fmt.Println("deploy is", os.Getenv("deploy"))
 
+	fmt.Println("please version")
+
+	var version string
+	_, err := fmt.Scan(&version)
+	if err != nil {
+		log.Fatal(err)
+	}
+	version = "--version=" + version
+
 	cmd := exec.Command(
-		"appcfg.sh", "--version=gcps0426c", "--application=map-sample-201300606", "--passin", "--no_cookies", "update", "/Users/shingoishimura/workspace/java20131116/gcp-study/src/main/webapp",
+		"appcfg.sh", version, "--application=map-sample-201300606", "--passin", "--no_cookies", "update", "/Users/shingoishimura/workspace/java20131116/gcp-study/src/main/webapp",
 	)
+	fmt.Println(cmd.Args)
 
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
