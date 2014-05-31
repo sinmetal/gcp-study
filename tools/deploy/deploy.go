@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"time"
 )
 
@@ -30,8 +31,15 @@ func main() {
 	}
 	version = "--version=" + version
 
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
+	warDir := dir + "/../../src/main/webapp"
+
 	cmd := exec.Command(
-		"appcfg.sh", version, "--application=map-sample-201300606", "--passin", "--no_cookies", "update", "/Users/shingoishimura/workspace/java20131116/gcp-study/src/main/webapp",
+		"appcfg.sh", "--oauth2", version, "--application=sandbox4sinmetal-tg", "update", warDir,
 	)
 	fmt.Println(cmd.Args)
 
