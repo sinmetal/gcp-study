@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"time"
 )
 
 func main() {
@@ -14,12 +15,18 @@ func main() {
 	// 環境変数取得
 	fmt.Println("deploy is", os.Getenv("deploy"))
 
+	defaultVersion := time.Now().Format("200601021504")
 	fmt.Println("please version")
+	fmt.Println("default version = " + defaultVersion)
 
 	var version string
-	_, err := fmt.Scan(&version)
+	_, err := fmt.Scanln(&version)
 	if err != nil {
-		log.Fatal(err)
+		if err.Error() == "unexpected newline" {
+			version = defaultVersion
+		} else {
+			log.Fatal(err)
+		}
 	}
 	version = "--version=" + version
 
